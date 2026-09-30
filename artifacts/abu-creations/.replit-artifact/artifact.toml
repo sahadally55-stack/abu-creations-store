@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Abu Creations"
+description = "A modern, responsive storefront for browsing curated products across clothing, shoes, and electronics, with search and cart foundations ready for future checkout and admin features."
+version = "1.0.0"
+id = "artifacts/abu-creations"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 25713
+
+[services.development]
+run = "pnpm --filter @workspace/abu-creations run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/abu-creations", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/abu-creations/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "25713"
+BASE_PATH = "/"
